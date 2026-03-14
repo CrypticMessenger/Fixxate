@@ -1,8 +1,5 @@
 import React from 'react';
-import { 
-  Play, Pause, ChevronsLeft, ChevronsRight, 
-  ChevronLeft, ChevronRight, Minus, Plus 
-} from 'lucide-react';
+import { Play, Pause } from 'lucide-react';
 import clsx from 'clsx';
 
 interface ControlsProps {
@@ -20,17 +17,17 @@ export const Controls: React.FC<ControlsProps> = ({
   wpm,
   onWpmChange
 }) => {
-  const btnClass = "flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-border-color hover:bg-black/5 dark:hover:bg-white/5 active:bg-black/10 transition-colors font-medium text-sm";
-  const iconBtnClass = "p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-colors";
+  const btnClass = "flex items-center justify-center gap-1.5 border border-border-color rounded-[10px] bg-bg2 text-text2 cursor-pointer text-xs font-mono px-3 py-2 transition-all hover:border-border2 hover:bg-bg3 hover:text-text active:scale-[0.97] whitespace-nowrap";
+  const iconBtnClass = "bg-transparent border-none text-text2 cursor-pointer text-lg leading-none px-1 transition-colors hover:text-orp";
 
   return (
-    <div className="flex items-center justify-center gap-4 py-6">
+    <div className="flex items-center justify-center gap-2 py-3 border-t border-border-color flex-shrink-0 flex-wrap">
       <button 
         className={btnClass}
         onClick={() => onNavigate(-1, 'chapter')}
         title="Previous chapter/page"
       >
-        <ChevronsLeft size={18} /> page
+        &laquo;
       </button>
 
       <button 
@@ -38,20 +35,23 @@ export const Controls: React.FC<ControlsProps> = ({
         onClick={() => onNavigate(-1, 'sentence')}
         title="Previous sentence"
       >
-        <ChevronLeft size={18} /> sentence
+        &minus;10
       </button>
       
       <button 
-        className={clsx(btnClass, "w-32 active:scale-[0.98] transition-all")}
+        className={clsx(
+          "flex items-center justify-center gap-1.5 border rounded-[10px] cursor-pointer text-xs font-mono transition-all active:scale-[0.97] whitespace-nowrap",
+          "bg-orp border-orp text-white px-5 font-bold min-w-[100px] hover:brightness-[0.88] hover:bg-orp hover:border-orp hover:text-white"
+        )}
         onClick={onPlayPause}
       >
         {isPlaying ? (
           <>
-            <Pause size={18} className="fill-current" /> pause
+            <Pause size={14} className="fill-current" /> pause
           </>
         ) : (
           <>
-            <Play size={18} className="fill-current ml-1" /> play
+            <Play size={14} className="fill-current" /> play
           </>
         )}
       </button>
@@ -61,7 +61,7 @@ export const Controls: React.FC<ControlsProps> = ({
         onClick={() => onNavigate(1, 'sentence')}
         title="Next sentence"
       >
-        sentence <ChevronRight size={18} />
+        +10
       </button>
 
       <button 
@@ -69,24 +69,26 @@ export const Controls: React.FC<ControlsProps> = ({
         onClick={() => onNavigate(1, 'chapter')}
         title="Next chapter/page"
       >
-        page <ChevronsRight size={18} />
+        &raquo;
       </button>
       
-      <div className="flex items-center ml-8 border border-border-color rounded-full bg-white dark:bg-[#222] px-2 py-1 relative">
+      <div className="w-[1px] h-6 bg-border-color flex-shrink-0 mx-1 block"></div>
+      
+      <div className="flex items-center gap-1.5 border border-border-color rounded-[10px] bg-bg2 px-3 py-1.5">
         <button 
           className={iconBtnClass} 
           onClick={() => onWpmChange(wpm - 25)}
         >
-          <Minus size={18} />
+          &minus;
         </button>
-        <div className="w-16 text-center font-mono font-medium tracking-wide">
-          {wpm} <span className="text-[10px] text-text-muted mt-1 uppercase tracking-wider block leading-none">WPM</span>
+        <div className="font-mono text-[13px] font-bold min-w-[26px] text-center text-text-color flex items-baseline gap-1">
+          {wpm} <span className="font-mono text-[10px] text-text3 font-normal">wpm</span>
         </div>
         <button 
           className={iconBtnClass} 
           onClick={() => onWpmChange(wpm + 25)}
         >
-          <Plus size={18} />
+          +
         </button>
       </div>
     </div>

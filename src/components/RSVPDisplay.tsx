@@ -112,8 +112,6 @@ export const RSVPDisplay: React.FC<RSVPDisplayProps> = ({
     <div className="flex flex-col min-h-screen transition-colors duration-300">
       <TopBar 
         bookTitle={book.title}
-        author={book.author}
-        chapterTitle={currentChapter?.title}
         progress={progressPct}
         percentageText={`${Math.round(progressPct * 100)}%`}
         onSeek={(pct) => engine.seek(Math.floor(pct * allWords.length))}
@@ -134,6 +132,13 @@ export const RSVPDisplay: React.FC<RSVPDisplayProps> = ({
           wordIndex={engine.wordIndex}
           totalWords={allWords.length}
           orpEnabled={settings.orpEnabled}
+          isPlaying={engine.isPlaying}
+          fontSize={settings.fontSize}
+          fontFamily={
+            settings.fontFamily === 'sans' ? 'system-ui, -apple-system, sans-serif' :
+            settings.fontFamily === 'serif' ? 'Georgia, serif' :
+            "'Courier New', monospace"
+          }
         />
         
         <ContextStrip 

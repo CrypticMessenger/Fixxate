@@ -73,15 +73,15 @@ export const ContextStrip: React.FC<ContextStripProps> = ({
   }, [words, currentIndex, position]);
 
   if (!visible || !sentence) {
-    return <div className="h-8 my-4" />; // Placeholder to prevent layout shift
+    return <div className={clsx("min-h-[48px]", position === 'before' ? "mb-[28px]" : "mt-[28px]")} />; 
   }
 
   return (
     <div 
       className={clsx(
-        "min-h-12 flex items-center justify-center my-4 px-4 sm:px-8",
-        "text-text-muted opacity-60 text-[15px] sm:text-base text-center transition-opacity duration-300",
-        "break-words max-w-4xl"
+        "min-h-[48px] flex items-center justify-center px-4 w-full max-w-[540px]",
+        "text-text3 text-[13px] leading-[1.7] text-center transition-opacity duration-300 break-words",
+        position === 'before' ? "mb-[28px]" : "mt-[28px]"
       )}
     >
       {sentence}

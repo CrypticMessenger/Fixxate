@@ -1,5 +1,4 @@
 import React from 'react';
-import { Check } from 'lucide-react';
 import type { ReaderSettings, ThemeType, FontType } from '../hooks/useSettings';
 import clsx from 'clsx';
 
@@ -8,133 +7,81 @@ interface SettingsBarProps {
   onUpdate: (updates: Partial<ReaderSettings>) => void;
 }
 
-type DropdownChoice = {
+interface ChipProps {
   label: string;
-  value: string | number | boolean;
-};
-
-interface DropdownProps {
-  label: string;
-  currentValue: string;
-  options: DropdownChoice[];
-  onChange: (val: any) => void;
+  value: string;
+  on?: boolean;
+  onClick: () => void;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ label, currentValue, options, onChange }) => {
-  const [open, setOpen] = React.useState(false);
-  const ref = React.useRef<HTMLDivElement>(null);
+const Chip: React.FC<ChipProps> = ({ label, value, on, onClick }) => (
+  <div
+    className={clsx(
+      "flex items-center gap-1 border rounded-[20px] py-1 px-[10px] cursor-pointer text-[11px] font-mono whitespace-nowrap flex-shrink-0 transition-all",
+      on
+        ? "border-orp text-orp bg-orp-bg"
+        : "border-border-color text-text2 bg-bg hover:border-border2 hover:bg-bg3 hover:text-text-color"
+    )}
+    onClick={onClick}
+  >
+    <span className="text-[9px] text-text3 uppercase tracking-[0.5px]">{label}&nbsp;</span>
+    {value}
+  </div>
+);
 
-  React.useEffect(() => {
-    const handleOutside = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    if (open) document.addEventListener('mousedown', handleOutside);
-    return () => document.removeEventListener('mousedown', handleOutside);
-  }, [open]);
-
-  return (
-    <div className="relative" ref={ref}>
-      <button 
-        onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-[100px] border border-border-color bg-white dark:bg-[#222] text-sm hover:bg-black/5 transition-colors font-medium text-text-muted hover:text-text-color"
-      >
-        <span className="uppercase text-[11px] font-bold tracking-wider opacity-60 mr-1">{label}</span>
-        {currentValue}
-      </button>
-
-      {open && (
-        <div className="absolute bottom-full mb-2 left-0 min-w-full bg-white dark:bg-[#1a1a1a] border border-border-color rounded-xl shadow-lg shadow-black/5 py-1 z-50 overflow-hidden transform-origin-bottom animate-in fade-in slide-in-from-bottom-2 duration-150">
-          {options.map(opt => {
-            const isSelected = opt.label === currentValue || opt.value === currentValue;
-            return (
-              <button
-                key={opt.label}
-                className="w-full text-left px-4 py-2 text-sm hover:bg-black/5 dark:hover:bg-white/5 flex items-center justify-between group"
-                onClick={() => {
-                  onChange(opt.value);
-                  setOpen(false);
-                }}
-              >
-                <span className={clsx(isSelected ? 'font-medium text-text-color' : 'text-text-muted group-hover:text-text-color')}>
-                  {opt.label}
-                </span>
-                {isSelected && <Check size={14} className="text-accent-color ml-3" />}
-              </button>
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
-};
+const themes: ThemeType[] = ['dark', 'light', 'sepia'];
+const fonts: FontType[] = ['mono', 'sans', 'serif'];
+const sizes = [24, 28, 32, 38, 44, 52, 60];
 
 export const SettingsBar: React.FC<SettingsBarProps> = ({ settings, onUpdate }) => {
+  const nextTheme = themes[(themes.indexOf(settings.theme) + 1) % themes.length];
+  const nextFont = fonts[(fonts.indexOf(settings.fontFamily) + 1) % fonts.length];
+  const currentSizeIdx = sizes.indexOf(settings.fontSize ?? 38);
+  const nextSize = sizes[(currentSizeIdx + 1) % sizes.length];
+
   return (
-    <div className="flex flex-wrap items-center justify-center gap-3 py-4 border-t border-border-color bg-white/50 backdrop-blur-sm dark:bg-[#222]/50">
-      <Dropdown
-        label="Chunk"
-        currentValue={`${settings.chunkSize} word${settings.chunkSize > 1 ? 's' : ''}`}
-        options={[
-          { label: '1 word', value: 1 },
-          { label: '2 words', value: 2 },
-          { label: '3 words', value: 3 },
-        ]}
-        onChange={val => onUpdate({ chunkSize: val })}
+    <div className="flex items-center gap-[6px] py-2 px-[14px] border-t border-border-color bg-bg2 overflow-x-auto flex-shrink-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <Chip
+        label="pause"
+        value={settings.smartPausing ? 'smart' : 'off'}
+        on={settings.smartPausing}
+        onClick={() => onUpdate({ smartPausing: !settings.smartPausing })}
       />
-      
-      <Dropdown
-        label="Pause"
-        currentValue={settings.smartPausing ? 'smart' : 'off'}
-        options={[
-          { label: 'smart', value: true },
-          { label: 'off', value: false },
-        ]}
-        onChange={val => onUpdate({ smartPausing: val })}
+      <Chip
+        label="context"
+        value={settings.contextEnabled ? 'strip' : 'off'}
+        on={settings.contextEnabled}
+        onClick={() => onUpdate({ contextEnabled: !settings.contextEnabled })}
       />
-
-      <Dropdown
-        label="ORP"
-        currentValue={settings.orpEnabled ? 'on' : 'off'}
-        options={[
-          { label: 'on', value: true },
-          { label: 'off', value: false },
-        ]}
-        onChange={val => onUpdate({ orpEnabled: val })}
+      <Chip
+        label="orp"
+        value={settings.orpEnabled ? 'highlight' : 'off'}
+        on={settings.orpEnabled}
+        onClick={() => onUpdate({ orpEnabled: !settings.orpEnabled })}
       />
-
-      <Dropdown
-        label="Theme"
-        currentValue={settings.theme}
-        options={[
-          { label: 'light', value: 'light' },
-          { label: 'dark', value: 'dark' },
-          { label: 'sepia', value: 'sepia' },
-        ]}
-        onChange={val => onUpdate({ theme: val as ThemeType })}
+      <Chip
+        label="chunk"
+        value={`${settings.chunkSize} word${settings.chunkSize > 1 ? 's' : ''}`}
+        onClick={() => onUpdate({ chunkSize: (settings.chunkSize % 3) + 1 })}
       />
-
-      <Dropdown
-        label="Font"
-        currentValue={settings.fontFamily}
-        options={[
-          { label: 'sans', value: 'sans' },
-          { label: 'serif', value: 'serif' },
-          { label: 'mono', value: 'mono' },
-        ]}
-        onChange={val => onUpdate({ fontFamily: val as FontType })}
+      <Chip
+        label="theme"
+        value={settings.theme}
+        onClick={() => onUpdate({ theme: nextTheme })}
       />
-
-      <Dropdown
-        label="Context"
-        currentValue={settings.contextEnabled ? 'strip' : 'off'}
-        options={[
-          { label: 'strip', value: true },
-          { label: 'off', value: false },
-        ]}
-        onChange={val => onUpdate({ contextEnabled: val })}
+      <Chip
+        label="font"
+        value={nextFont === 'mono' ? settings.fontFamily : nextFont}
+        onClick={() => onUpdate({ fontFamily: nextFont })}
       />
+      <Chip
+        label="size"
+        value={`${settings.fontSize ?? 38}px`}
+        onClick={() => onUpdate({ fontSize: nextSize })}
+      />
+      <div className="flex-1" />
     </div>
   );
 };
+
+

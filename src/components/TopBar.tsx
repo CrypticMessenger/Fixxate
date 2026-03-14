@@ -1,61 +1,62 @@
 import React from 'react';
-import { Menu } from 'lucide-react';
-import { ProgressBar } from './ProgressBar';
 
 interface TopBarProps {
   bookTitle: string;
-  author?: string;
-  chapterTitle?: string;
-  pageInfo?: string; // "p. 87 / 188"
   progress: number; // 0 to 1
   percentageText: string; // "38%"
   onSeek: (percentage: number) => void;
   onMenuClick: () => void;
+  onSettingsClick?: () => void;
 }
 
 export const TopBar: React.FC<TopBarProps> = ({
   bookTitle,
-  author,
-  chapterTitle,
-  pageInfo,
   progress,
   percentageText,
   onSeek,
-  onMenuClick
+  onMenuClick,
+  onSettingsClick
 }) => {
+  const tbtnClass = "w-[30px] h-[30px] rounded-[8px] border border-border-color bg-transparent text-text2 cursor-pointer text-base flex items-center justify-center flex-shrink-0 transition-colors hover:bg-bg3";
+
+  const handleTrackClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    onSeek(pct);
+  };
+
   return (
-    <div className="flex items-center justify-between py-4 px-6 border-b border-border-color bg-white dark:bg-[#222] sepia:bg-[#eaddc5]">
-      <div className="flex items-center gap-4 text-sm font-medium">
-        <span className="text-text-color font-semibold">
-          {bookTitle} {author ? `— ${author}` : ''}
-        </span>
-        
-        {chapterTitle && (
-          <div className="px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 sepia:bg-blue-500/10 sepia:text-blue-800 border border-blue-200 dark:border-blue-800 sepia:border-blue-300">
-            {chapterTitle}
-          </div>
-        )}
-        
-        {pageInfo && (
-          <div className="px-3 py-1.5 rounded-full border border-border-color text-text-muted">
-            {pageInfo}
-          </div>
-        )}
-      </div>
-      
-      <div className="flex items-center flex-1 max-w-2xl px-8">
-        <ProgressBar progress={progress} onSeek={onSeek} />
-        <span className="text-sm font-mono text-text-muted ml-4 w-10 text-right">
-          {percentageText}
-        </span>
-      </div>
-      
-      <button 
-        onClick={onMenuClick}
-        className="p-2 border border-border-color rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
-      >
-        <Menu size={18} />
+    <div className="flex items-center gap-[10px] py-[9px] px-[14px] border-b border-border-color flex-shrink-0">
+      <button className={tbtnClass} onClick={onMenuClick} title="Back to library">
+        ←
       </button>
+      <div 
+        id="topbar-title"
+        className="text-[12px] font-medium text-text2 whitespace-nowrap overflow-hidden text-ellipsis max-w-[180px]"
+      >
+        {bookTitle}
+      </div>
+      
+      {/* Progress track */}
+      <div 
+        className="flex-1 h-[3px] bg-border-color rounded-[2px] cursor-pointer"
+        onClick={handleTrackClick}
+      >
+        <div 
+          className="h-[3px] bg-orp rounded-[2px] w-0 transition-[width_.1s] pointer-events-none"
+          style={{ width: `${progress * 100}%` }}
+        />
+      </div>
+
+      <div className="text-[11px] text-text3 font-mono min-w-[28px] text-right flex-shrink-0">
+        {percentageText}
+      </div>
+      
+      {onSettingsClick && (
+        <button className={tbtnClass} onClick={onSettingsClick} title="Settings">
+          ⚙
+        </button>
+      )}
     </div>
   );
 };

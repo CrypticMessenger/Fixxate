@@ -52,16 +52,15 @@ export function useSettings() {
     root.classList.add(settings.theme);
   }, [settings.theme]);
 
-  // Apply font family to root (or we can just pass down context)
+  // Apply font family to root
   useEffect(() => {
     const root = document.documentElement;
-    if (settings.fontFamily === 'sans') {
-      root.style.setProperty('--font-body', 'var(--font-heading)');
-    } else if (settings.fontFamily === 'serif') {
-      root.style.setProperty('--font-body', 'var(--font-serif)');
-    } else {
-      root.style.setProperty('--font-body', 'var(--font-mono)');
-    }
+    const fontMap: Record<string, string> = {
+      sans: 'system-ui, -apple-system, sans-serif',
+      serif: 'Georgia, serif',
+      mono: "'Courier New', monospace",
+    };
+    root.style.setProperty('--reader-font', fontMap[settings.fontFamily] || fontMap.sans);
   }, [settings.fontFamily]);
 
   return { settings, updateSettings };

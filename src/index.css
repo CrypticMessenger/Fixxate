@@ -3,54 +3,69 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-brand-light: #fdfaf6;
-  --color-brand-dark: #1e1e1e;
-  --color-brand-sepia: #f4ecd8;
-  
-  --color-orp-red: #e11d48;
-  --color-orp-coral: #ff7f50;
-
-  --color-bg-color: var(--bg-color);
-  --color-text-color: var(--text-color);
+  --color-bg: var(--bg);
+  --color-bg2: var(--bg2);
+  --color-bg3: var(--bg3);
+  --color-bg4: var(--bg4);
   --color-border-color: var(--border-color);
-  --color-accent-color: var(--accent-color);
-  --color-text-muted: var(--text-muted);
+  --color-border2: var(--border2);
+  --color-text-color: var(--text-color);
+  --color-text2: var(--text2);
+  --color-text3: var(--text3);
+  --color-orp: var(--orp);
+  --color-orp-bg: var(--orp-bg);
+
+  --font-mono: 'Courier New', monospace;
+  --font-sans: system-ui, -apple-system, sans-serif;
 }
 
 @layer base {
   :root {
-    --bg-color: #fdfaf6;
-    --text-color: #1e1e1e;
-    --border-color: #e5e5e5;
-    --accent-color: #e11d48;
-    --text-muted: #737373;
-    
-    --font-heading: 'Inter', system-ui, sans-serif;
-    --font-body: 'Inter', system-ui, sans-serif;
-    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    --font-serif: 'Merriweather', ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    --bg: #f5f3ef;
+    --bg2: #eeece8;
+    --bg3: #e5e2dc;
+    --bg4: #d8d4cc;
+    --border-color: rgba(0,0,0,0.07);
+    --border2: rgba(0,0,0,0.13);
+    --text-color: #1a1917;
+    --text2: #6b6760;
+    --text3: #a09c96;
+    --orp: #e85d3a;
+    --orp-bg: rgba(232,93,58,0.08);
   }
   
   .dark {
-    --bg-color: #1a1a1a;
-    --text-color: #f5f5f5;
-    --border-color: #333333;
-    --accent-color: var(--color-orp-coral);
-    --text-muted: #a3a3a3;
+    --bg: #0e0e0f;
+    --bg2: #161618;
+    --bg3: #1e1e21;
+    --bg4: #28282d;
+    --border-color: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.13);
+    --text-color: #f0ede8;
+    --text2: #8a8782;
+    --text3: #555350;
+    --orp: #e85d3a;
+    --orp-bg: rgba(232,93,58,0.12);
   }
   
   .sepia {
-    --bg-color: #f4ecd8;
-    --text-color: #433422;
-    --border-color: #d1c5b4;
-    --accent-color: #d946ef;
-    --text-muted: #85725a;
+    --bg: #1a1610;
+    --bg2: #201c14;
+    --bg3: #28231a;
+    --bg4: #332c20;
+    --border-color: rgba(255,230,180,0.07);
+    --border2: rgba(255,230,180,0.13);
+    --text-color: #f0e6cc;
+    --text2: #9a8c6e;
+    --text3: #5c5040;
+    --orp: #f0a030;
+    --orp-bg: rgba(240,160,48,0.1);
   }
 
   body {
-    background-color: var(--bg-color);
+    background-color: var(--bg);
     color: var(--text-color);
-    font-family: var(--font-body);
+    font-family: var(--font-sans);
     transition: background-color 0.2s, color 0.2s;
   }
 }
