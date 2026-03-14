@@ -3,7 +3,7 @@ import { Upload, BookOpen, Trash2, ArrowRight } from 'lucide-react';
 import type { ParsedBook } from '../lib/types';
 import { getAllBooksFromDb, deleteBookFromDb } from '../lib/db';
 import { useProgress } from '../hooks/useProgress';
-import { WelcomeModal, isFirstVisit } from './WelcomeModal';
+import { WelcomeModal } from './WelcomeModal';
 import clsx from 'clsx';
 
 interface LibraryProps {
@@ -18,7 +18,10 @@ export const Library: React.FC<LibraryProps> = ({
   isParsing = false
 }) => {
   const [books, setBooks] = useState<ParsedBook[]>([]);
-  const [showWelcome, setShowWelcome] = useState(() => isFirstVisit());
+  const [booksLoaded, setBooksLoaded] = useState(false);
+  // Dismiss state — modal can be closed mid-session without reappearing
+  const [dismissed, setDismissed] = useState(false);
+  const showWelcome = booksLoaded && books.length === 0 && !dismissed;
   const { getProgress, clearProgress } = useProgress();
   const [isDragging, setIsDragging] = useState(false);
 
@@ -29,6 +32,7 @@ export const Library: React.FC<LibraryProps> = ({
   const loadBooks = async () => {
     const all = await getAllBooksFromDb();
     setBooks(all);
+    setBooksLoaded(true);
   };
 
   const handleDelete = async (e: React.MouseEvent, id: string) => {
@@ -66,7 +70,7 @@ export const Library: React.FC<LibraryProps> = ({
 
   return (
     <>
-      {showWelcome && <WelcomeModal onDismiss={() => setShowWelcome(false)} />}
+      {showWelcome && <WelcomeModal onDismiss={() => setDismissed(true)} />}
       <div className="max-w-5xl mx-auto p-6 pt-12 md:p-12 h-screen overflow-y-auto">
       <div className="flex flex-col items-start mb-8">
         <div className="text-[26px] font-light tracking-[-0.5px] text-text-color mb-1">

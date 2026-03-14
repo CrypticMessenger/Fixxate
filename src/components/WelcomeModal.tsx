@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { splitWordByORP } from '../lib/orp';
 
-const STORAGE_KEY = 'fixate_welcomed';
 
 const DEMO_TEXT = `Your eyes jump between words when you read — these jumps are called saccades. RSVP eliminates saccades by bringing each word to you. The result is that you spend one hundred percent of your time processing language instead of moving your eyes.`;
 
@@ -192,7 +191,6 @@ export function WelcomeModal({ onDismiss }: WelcomeModalProps) {
   const TOTAL = 3;
 
   const dismiss = () => {
-    localStorage.setItem(STORAGE_KEY, 'true');
     onDismiss();
   };
 
@@ -256,13 +254,4 @@ export function WelcomeModal({ onDismiss }: WelcomeModalProps) {
       </div>
     </div>
   );
-}
-
-/** Returns true if this is the user's first visit */
-export function isFirstVisit(): boolean {
-  try {
-    return !localStorage.getItem(STORAGE_KEY);
-  } catch {
-    return false;
-  }
 }
