@@ -115,8 +115,8 @@ export const Library: React.FC<LibraryProps> = ({
               
               <div className="flex gap-3 mb-8">
                 <span className="text-xs font-semibold px-2 py-1 bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400 rounded">EPUB</span>
-                <span className="text-xs font-semibold px-2 py-1 bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400 rounded">PDF</span>
-                <span className="text-xs font-semibold px-2 py-1 bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 rounded">MD</span>
+                <span className="text-xs font-semibold px-2 py-1 bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 rounded">PDF</span>
+                <span className="text-xs font-semibold px-2 py-1 bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400 rounded">MD</span>
               </div>
               
               <div className="text-xs text-text-muted uppercase tracking-wider">up to 50 MB</div>
@@ -125,7 +125,7 @@ export const Library: React.FC<LibraryProps> = ({
               <input 
                 type="file" 
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" 
-                accept=".epub,application/epub+zip,.pdf,application/pdf"
+                accept=".epub,application/epub+zip,.pdf,application/pdf,.md,.markdown,text/markdown"
                 onChange={handleFileChange}
               />
             </>
@@ -153,9 +153,10 @@ export const Library: React.FC<LibraryProps> = ({
                   {/* Format badge */}
                   <div className={clsx(
                     "w-full sm:w-20 p-4 flex flex-row sm:flex-col items-center justify-center font-bold text-xs tracking-wider uppercase border-b sm:border-b-0 sm:border-r border-border-color",
-                    book.format === 'epub' 
-                      ? "bg-blue-50 text-blue-600 dark:bg-blue-900/10 dark:text-blue-400" 
-                      : "bg-red-50 text-red-600 dark:bg-red-900/10 dark:text-red-400"
+                    book.format === 'epub' && "bg-green-50 text-green-600 dark:bg-green-900/10 dark:text-green-400",
+                    book.format === 'pdf' && "bg-blue-50 text-blue-600 dark:bg-blue-900/10 dark:text-blue-400",
+                    book.format === 'md' && "bg-purple-50 text-purple-600 dark:bg-purple-900/10 dark:text-purple-400",
+                    book.format === 'txt' && "bg-gray-50 text-gray-600 dark:bg-gray-900/10 dark:text-gray-400"
                   )}>
                     {book.format}
                   </div>
