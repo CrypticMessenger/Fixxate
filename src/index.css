@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-brand-light: #fdfaf6;
+  --color-brand-dark: #1e1e1e;
+  --color-brand-sepia: #f4ecd8;
+  
+  --color-orp-red: #e11d48;
+  --color-orp-coral: #ff7f50;
+
+  --color-bg-color: var(--bg-color);
+  --color-text-color: var(--text-color);
+  --color-border-color: var(--border-color);
+  --color-accent-color: var(--accent-color);
+  --color-text-muted: var(--text-muted);
+}
+
+@layer base {
+  :root {
+    --bg-color: #fdfaf6;
+    --text-color: #1e1e1e;
+    --border-color: #e5e5e5;
+    --accent-color: #e11d48;
+    --text-muted: #737373;
+    
+    --font-heading: 'Inter', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --font-serif: 'Merriweather', ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  }
+  
+  .dark {
+    --bg-color: #1a1a1a;
+    --text-color: #f5f5f5;
+    --border-color: #333333;
+    --accent-color: var(--color-orp-coral);
+    --text-muted: #a3a3a3;
+  }
+  
+  .sepia {
+    --bg-color: #f4ecd8;
+    --text-color: #433422;
+    --border-color: #d1c5b4;
+    --accent-color: #d946ef;
+    --text-muted: #85725a;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    transition: background-color 0.2s, color 0.2s;
+  }
+}
+
+@layer utilities {
+  .tabular-nums-mono {
+    font-variant-numeric: tabular-nums;
+  }
+}
