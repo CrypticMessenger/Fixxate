@@ -4,6 +4,16 @@ export interface ParsedChapter {
   content: string; // Raw text content (optional, mostly for debugging)
   words: string[]; // Tokenized words
   globalWordOffset: number; // The global index of the first word in this chapter
+  paragraphOffsets?: number[]; // Starting word indices for each paragraph
+}
+
+export interface ReadingNote {
+  id: string;
+  wordIndex: number;
+  text: string;
+  timestamp: number;
+  type: 'manual' | 'pulse';
+  prompt?: string;
 }
 
 export interface ParsedBook {
@@ -14,6 +24,7 @@ export interface ParsedBook {
   format: 'epub' | 'pdf' | 'txt' | 'md' | 'url';
   chapters: ParsedChapter[];
   totalWords: number;
+  notes?: ReadingNote[];
 }
 
 export interface BookPosition {

@@ -7,6 +7,7 @@ interface KeyboardActions {
   onSeekSentence: (delta: number) => void;
   onCycleTheme?: () => void;
   onExit?: () => void;
+  onAddNote?: () => void;
 }
 
 export function useKeyboard(actions: KeyboardActions, isEnabled: boolean = true) {
@@ -64,6 +65,13 @@ export function useKeyboard(actions: KeyboardActions, isEnabled: boolean = true)
         case 'T':
           if (actions.onCycleTheme) {
             actions.onCycleTheme();
+            handled = true;
+          }
+          break;
+        case 'n':
+        case 'N':
+          if (actions.onAddNote) {
+            actions.onAddNote();
             handled = true;
           }
           break;

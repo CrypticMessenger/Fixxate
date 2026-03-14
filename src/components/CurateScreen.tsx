@@ -6,7 +6,7 @@ import type { ExtractedPage, ExtractedParagraph } from '../lib/extractor';
 interface CurateScreenProps {
   page: ExtractedPage;
   onBack: () => void;
-  onStart: (curatedText: string) => void;
+  onStart: (paragraphs: ExtractedParagraph[]) => void;
   wpm: number;
 }
 
@@ -57,11 +57,10 @@ export const CurateScreen: React.FC<CurateScreenProps> = ({
   };
 
   const handleStart = () => {
-    const curatedText = items
+    const curated = items
       .filter(i => !i.removed)
-      .map(i => i.text)
-      .join('\n\n');
-    onStart(curatedText);
+      .map(({ text, type }) => ({ text, type }));
+    onStart(curated);
   };
 
   return (
