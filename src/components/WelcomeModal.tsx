@@ -209,7 +209,7 @@ export function WelcomeModal({ onDismiss }: WelcomeModalProps) {
         {/* Header */}
         <div className="flex items-center justify-between px-6 pt-5 pb-0 flex-shrink-0">
           <div className="text-[16px] font-light text-[#1a1917]">
-            Fix<b className="text-[#e85d3a] font-semibold">ate</b>
+            Fixx<b className="text-[#e85d3a] font-semibold">ate</b>
           </div>
           {/* Dot indicators */}
           <div className="flex gap-1.5 absolute left-1/2 -translate-x-1/2">

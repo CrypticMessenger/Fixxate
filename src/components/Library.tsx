@@ -74,7 +74,7 @@ export const Library: React.FC<LibraryProps> = ({
       <div className="max-w-5xl mx-auto p-6 pt-12 md:p-12 h-screen overflow-y-auto">
       <div className="flex flex-col items-start mb-8">
         <div className="text-[26px] font-light tracking-[-0.5px] text-text-color mb-1">
-          Fix<b className="text-orp font-semibold">ate</b>
+          Fixx<b className="text-orp font-semibold">ate</b>
         </div>
         <div className="text-[11px] text-text3 font-mono tracking-[1px] uppercase mb-1">
           rapid serial visual presentation
