@@ -1,73 +1,63 @@
-# React + TypeScript + Vite
+# Fixxate 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Fixxate is a minimalist, high-performance RSVP (Rapid Serial Visual Presentation) reader designed to eliminate saccadic eye movements and double your reading speed.
 
-Currently, two official plugins are available:
+[![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)](https://vitejs.dev/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
 
-## React Compiler
+- **Multi-Format Support**: Seamlessly read `.epub`, `.pdf`, and `.md` files.
+- **ORP Highlighting**: Optimal Recognition Point centering to keep your focus locked.
+- **Context Strip**: Optional surrounding text context to maintain reading flow.
+- **Smart Pausing**: Automatic timing adjustments at punctuation and long words.
+- **Premium Themes**: Choose between **Dark**, **Light**, and **Sepia** to reduce eye strain.
+- **Responsive Design**: Fast, fluid, and fully reactive interface.
+- **Keyboard First**: Navigate entirely via shortcuts for an uninterrupted experience.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🧠 The Science
 
-## Expanding the ESLint configuration
+Traditional reading wastes ~80% of your time on **saccades** (eye jumps between words). Fixxate brings the words to you at a fixed point, allowing your brain to focus 100% on language processing.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ⌨️ Keyboard Shortcuts
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Shortcut | Action |
+|---|---|
+| `Space` | Play / Pause |
+| `↑` / `↓` | Increase / Decrease Speed (WPM) |
+| `←` / `→` | Jump ±10 Words |
+| `[` / `]` | Jump ±Sentence |
+| `T` | Cycle Themes |
+| `F` | Toggle Font Size |
+| `Esc` | Back to Library |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠️ Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Core**: React 18 + TypeScript + Vite
+- **Styling**: Tailwind CSS
+- **Persistence**: IndexedDB (for book storage) + LocalStorage (for settings)
+- **Analytics**: Vercel Analytics
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. **Clone the repo**:
+   ```bash
+   git clone https://github.com/CrypticMessenger/Fixxate.git
+   ```
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+3. **Run development server**:
+   ```bash
+   npm run dev
+   ```
+4. **Build for production**:
+   ```bash
+   npm run build
+   ```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📄 License
+
+MIT License. Feel free to use and contribute!
