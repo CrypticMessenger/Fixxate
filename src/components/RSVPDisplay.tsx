@@ -93,18 +93,6 @@ export const RSVPDisplay: React.FC<RSVPDisplayProps> = ({
     }
   });
 
-  // Determine current chapter
-  const currentChapter = useMemo(() => {
-    let current = book.chapters[0];
-    for (const chap of book.chapters) {
-      if (engine.wordIndex >= chap.globalWordOffset) {
-        current = chap;
-      } else {
-        break;
-      }
-    }
-    return current;
-  }, [book, engine.wordIndex]);
 
   const progressPct = allWords.length > 0 ? engine.wordIndex / allWords.length : 0;
 
