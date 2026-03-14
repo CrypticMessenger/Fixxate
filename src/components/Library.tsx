@@ -116,6 +116,7 @@ export const Library: React.FC<LibraryProps> = ({
               <div className="flex gap-3 mb-8">
                 <span className="text-xs font-semibold px-2 py-1 bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400 rounded">EPUB</span>
                 <span className="text-xs font-semibold px-2 py-1 bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400 rounded">PDF</span>
+                <span className="text-xs font-semibold px-2 py-1 bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 rounded">MD</span>
               </div>
               
               <div className="text-xs text-text-muted uppercase tracking-wider">up to 50 MB</div>
